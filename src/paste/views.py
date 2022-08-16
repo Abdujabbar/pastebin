@@ -1,4 +1,4 @@
-from services import SharePasteService
+from .services import SharePasteService
 from django.http import HttpResponse
 from rest_framework.generics import RetrieveAPIView, CreateAPIView
 from .models import Paste
