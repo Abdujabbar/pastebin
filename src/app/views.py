@@ -50,23 +50,23 @@ class PasteRendererView(View):
         return render(request, self.template_name, {'paste': paste})
 
 
-# class PasteCreateAPIView(CreateAPIView):
-#     permission_classes = (IsAuthenticated,) 
-#     authentication_classes = (SessionAuthentication, JWTAuthentication,) 
-#     queryset = Paste.objects.all()
-#     serializer_class = PasteSerializer
+class PasteCreateAPIView(CreateAPIView):
+    permission_classes = (IsAuthenticated,) 
+    authentication_classes = (SessionAuthentication, JWTAuthentication,) 
+    queryset = Paste.objects.all()
+    serializer_class = PasteSerializer
 
-#     def post(self, request, *args, **kwargs):
-#         serializer = self.get_serializer(data=request.data)
-#         serializer.is_valid(raise_exception=True)
-#         serializer.instance = SharePasteService().execute(
-#             request.data.get('expired_at'), 
-#             request.data.get('content'), 
-#             request.user)
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.instance = SharePasteService().execute(
+            request.data.get('expired_at'), 
+            request.data.get('content'), 
+            request.user)
         
-#         return Response(
-#             status=201,
-#             data = {
-#                 'short_url': request.get_host() + reverse('paste_detail', kwargs={'short_url':serializer.data.get('short_url')})
-#             }
-#         )
+        return Response(
+            status=201,
+            data = {
+                'short_url': request.get_host() + reverse('paste_detail', kwargs={'short_url':serializer.data.get('short_url')})
+            }
+        )
