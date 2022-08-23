@@ -1,0 +1,11 @@
+{% extends "layouts/default.html" %}
+{% load crispy_forms_tags %}
+
+{% block content%}
+<h1 class="mt-5">New paste! </h1>
+<form method="post">
+    {% csrf_token %}
+    {{ formset|crispy }}
+    <input type="submit" value="Submit" class="btn btn-default btn-primary">
+</form>
+{% endblock %}

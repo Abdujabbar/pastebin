@@ -4,3 +4,4 @@ from .models import Paste
 class PasteSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Paste
+        fields = ['short_url', 'content']

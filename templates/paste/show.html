@@ -1,0 +1,17 @@
+{% extends "layouts/default.html" %}
+{% load crispy_forms_tags %}
+
+{% block content%}
+
+<p>{{paste.user}}: {{paste.created_at}}</p>
+<figure class="figure">
+    <div class="bd-example">
+    <pre>{{paste.content}}
+    </pre>
+    <div>
+</figure>
+
+
+
+
+{% endblock %}
