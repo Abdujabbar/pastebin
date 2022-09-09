@@ -1,7 +1,8 @@
 from rest_framework import serializers
-from .models import Paste
+from app.models import Paste
+
 
 class PasteSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Paste
-        fields = ['short_url', 'content']
+        fields = ["name", "content", "short_url"]

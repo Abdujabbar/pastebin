@@ -3,8 +3,8 @@ from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from django.utils.timezone import make_aware
-from datetime import datetime
+
+from .managers import PasteActiveRecordsManager
 
 
 class TrashableMixin(models.Model):
@@ -17,8 +17,8 @@ class TrashableMixin(models.Model):
     @property
     def is_deleted(self):
         if not self.deleted_at:
-            return False 
-        
+            return False
+
         return self.deleted_at < timezone.now()
 
 
@@ -34,6 +34,9 @@ class Paste(TrashableMixin):
     expired_at = models.DateTimeField(default=get_next_30th_day, null=True)
     short_url = models.CharField(max_length=8, null=True)
     permanent_delete = models.BooleanField(default=False)
+    name = models.CharField(max_length=255)
+
+    active_records = PasteActiveRecordsManager()
 
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
@@ -43,6 +46,7 @@ class Paste(TrashableMixin):
 
     def clean_fields(self, *args, **kwargs) -> None:
         if self.expired_at < timezone.now():
-            raise ValidationError({'expired_at': 'Expired at should be greater than now'})
+            raise ValidationError(
+                {"expired_at": "Expired at should be greater than now"}
+            )
         return super().clean_fields(*args, **kwargs)
-

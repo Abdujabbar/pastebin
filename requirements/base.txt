@@ -5,3 +5,5 @@ markdown
 django-filter
 djangorestframework-simplejwt
 django-crispy-forms
+flake8
+black

@@ -2,16 +2,23 @@
 {% load crispy_forms_tags %}
 
 {% block content%}
-
-<p>{{paste.user}}: {{paste.created_at}}</p>
+<div class="row">
+    <div class="col-sm">
+        <p>{{paste.user}}</p>
+    </div>
+    <div class="col-sm">
+        <p class="text-right">{{paste.created_at}}</p>
+    </div>
+</div>
 <figure class="figure">
     <div class="bd-example">
-    <pre>{{paste.content}}
-    </pre>
+        {{paste.content | safe}}
     <div>
 </figure>
 
-
-
-
+<style>
+    .figure {
+        display: block !important;
+    }
+</style>
 {% endblock %}
